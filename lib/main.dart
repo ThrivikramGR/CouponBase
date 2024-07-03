@@ -1,3 +1,4 @@
+import 'package:coupon_base/ui/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -25,14 +26,14 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       initialRoute:
-          FirebaseAuth.instance.currentUser == null ? '/sign-in' : '/profile',
+          FirebaseAuth.instance.currentUser == null ? '/sign-in' : '/home',
       routes: {
         '/sign-in': (context) {
           return SignInScreen(
             providers: providers,
             actions: [
               AuthStateChangeAction<SignedIn>((context, state) {
-                Navigator.pushReplacementNamed(context, '/profile');
+                Navigator.pushReplacementNamed(context, '/home');
               }),
             ],
           );
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
             ],
           );
         },
+        '/home': (context) {
+          return HomeScreen();
+        }
       },
     );
   }
