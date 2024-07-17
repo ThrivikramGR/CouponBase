@@ -1,7 +1,7 @@
-import 'package:coupon_base/ui/screens/home_page.dart';
-import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
+import 'package:coupon_base/ui/screens/home_screen.dart';
+import 'package:coupon_base/ui/screens/sign_in_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
@@ -19,39 +19,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final providers = [EmailAuthProvider()];
     return MaterialApp(
       title: 'Coupon Base',
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute:
-          FirebaseAuth.instance.currentUser == null ? '/sign-in' : '/home',
-      routes: {
-        '/sign-in': (context) {
-          return SignInScreen(
-            providers: providers,
-            actions: [
-              AuthStateChangeAction<SignedIn>((context, state) {
-                Navigator.pushReplacementNamed(context, '/home');
-              }),
-            ],
-          );
-        },
-        '/profile': (context) {
-          return ProfileScreen(
-            providers: providers,
-            actions: [
-              SignedOutAction((context) {
-                Navigator.pushReplacementNamed(context, '/sign-in');
-              }),
-            ],
-          );
-        },
-        '/home': (context) {
-          return HomeScreen();
-        }
-      },
+      home: FirebaseAuth.instance.currentUser == null
+          ? SignInScreen()
+          : HomeScreen(),
     );
   }
 }
