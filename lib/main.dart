@@ -1,6 +1,5 @@
 import 'package:coupon_base/ui/screens/home_screen.dart';
 import 'package:coupon_base/ui/screens/sign_in_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +23,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: FirebaseAuth.instance.currentUser == null
-          ? SignInScreen()
-          : HomeScreen(),
+      //***placeholder***
+      home: //FirebaseAuth.instance.currentUser == null
+          false ? SignInScreen() : HomeScreen(),
     );
   }
 }
